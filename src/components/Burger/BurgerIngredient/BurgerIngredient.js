@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 
 import PropTypes from 'prop-types';
 import classes from './BurgerIngredient.module.css';
-import BurgerBuilder from '../../../containers/BurgerBuilder/BurgerBuilder';
 
 class BurgerIngredient extends Component {
 
@@ -33,7 +32,7 @@ class BurgerIngredient extends Component {
                 case('bacon'):
                         ingredient = <div className={classes.Bacon}></div>;
                         break;
-                case('meat'):
+                case('salad'):
                         ingredient = <div className={classes.Salad}></div>;
                         break;
 
