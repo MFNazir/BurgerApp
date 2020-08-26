@@ -4,10 +4,10 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
 
-    console.log(props.ingredients);
-    console.log( Object.keys(props.ingredients));
+    console.log(props.ingredients); //gtes you object from Burger Builder
+    console.log( Object.keys(props.ingredients)); //makes arrays of the object
 
-    const transformedIngredients = Object.keys(props.ingredients).map(igKey => { // this gives [] of ["salad", "cheese", "tikki", "tanduri"]
+    let transformedIngredients = Object.keys(props.ingredients).map(igKey => { // this gives [] of ["salad", "cheese", "tikki", "tanduri"]
         
         console.log(igKey); //this gives you for example salad or like every element of the array
         console.log(props.ingredients[igKey]); //helps determine the size of the Array below. for example salad would props.ingredient[salad] = 1
@@ -22,7 +22,7 @@ const burger = (props) => {
 
             //.map((_, i) => { 
             //So now we have, for the ingredient loop that we are on, an array of undefined. On THAT array we call a second map function. 
-            //Here we already know the value will be undefined so we can throw that away (that's the underscore). 
+            //Here we already know the value/element will be undefined so we can throw that away (that's the underscore). 
             //What we want to know is the index which is the i
 
 
@@ -31,7 +31,17 @@ const burger = (props) => {
 
             return <BurgerIngredient key={igKey + i} type={igKey} />
         });
-    });
+    })
+
+    .reduce((arr, el) => { //allows us to see the content of an array
+
+        return arr.concat(el)
+    }, []);
+
+    if (transformedIngredients.length === 0) {
+
+            transformedIngredients = <p>Please Start Adding Ingredients</p>        
+    }
 
     //console.log(transformedIngredients);
 
