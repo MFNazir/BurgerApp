@@ -20,7 +20,12 @@ const buildControls = (props) => (
 
         {controls.map(ctrl => (
             
-            <BuildControl key={ctrl.label} label={ctrl.label} /> //typr will come later
+            <BuildControl 
+            key={ctrl.label} 
+            label={ctrl.label}
+            added={() => props.ingredientAdded(ctrl.type)} 
+            removed={() => props.ingredientRemoved(ctrl.type)} 
+            disabled={props.disabled[ctrl.type]}/> //Type is from above controls const. This will pass type to addedIngredients handler
 
         ))}
 
