@@ -28,7 +28,9 @@ const buildControls = (props) => (
                 disabled={props.disabled[ctrl.type]} /> //Type is from above controls const. This will pass type to addedIngredients handler
 
         ))}
-        <button className={classes.OrderButton}>ORDER NOW</button>
+        <button 
+        className={classes.OrderButton}
+        disabled={!props.purchaseable} >ORDER NOW</button>
     </div>
 );
 

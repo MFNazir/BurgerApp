@@ -21,12 +21,22 @@ class BurgerBuilder extends Component {
         purchaseable: false
     }
 
-    updatePurchaseState() {
-        const ingredients = {
-            ...this.state.ingredients
-        };
-        const sum = Object.keys(ingredients)
+    updatePurchaseState(ingredients) {
+        
+        const sum = Object.keys(ingredients) //this gives you an array of keys of the ingredient state
+         .map(igKey => {
+                return ingredients[igKey]; //this will return an amount (value) for the selected key for example salad would return 0
+         })
+         .reduce((sum, el) => {
+             return sum + el;
+         }, 0); //zero is the starting number
+         this.setState({purchaseable: sum > 0}); //return would be true or false
+         console.log(sum);
     }
+
+    //alternative updatePurchaseState
+    //const notPurchasable = Object.values(ingredients).every((e) => e === 0);
+    //this.setState({ purchasable: !notPurchasable });
 
     addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type]; //need the old count
@@ -39,6 +49,7 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice; //this gets the already created base price from the state
         const newPrice = oldPrice + priceAddition; //this gives you the new price 
         this.setState({ totalPrice: newPrice, ingredients: updatedIngredients }); //updates the state
+        this.updatePurchaseState(updatedIngredients);
     }
 
     removeIngredientHandler = (type) => {
@@ -55,6 +66,8 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice; //this gets the already created base price from the state
         const newPrice = oldPrice - priceDeduction; //this gives you the new price 
         this.setState({ totalPrice: newPrice, ingredients: updatedIngredients }); //updates the state
+        this.updatePurchaseState(updatedIngredients);
+
     }
 
     render() {
@@ -71,7 +84,8 @@ class BurgerBuilder extends Component {
                     ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disabledInfo}
-                    price={this.state.totalPrice} />
+                    price={this.state.totalPrice} 
+                    purchaseable={this.state.purchaseable} />
 
 
             </Aux>
