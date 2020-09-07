@@ -4,13 +4,13 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
 
-    console.log(props.ingredients); //gtes you object from Burger Builder
-    console.log( Object.keys(props.ingredients)); //makes arrays of the object
+    //console.log(props.ingredients); //gtes you object from Burger Builder
+    //console.log( Object.keys(props.ingredients)); //makes arrays of the object
 
     let transformedIngredients = Object.keys(props.ingredients).map(igKey => { // this gives [] of keys ["salad", "cheese", "tikki", "tanduri"]
         
-        console.log(igKey); //this gives you for example salad or like every element of the array
-        console.log(props.ingredients[igKey]); //helps determine the size of the Array below. for example salad would props.ingredient[salad] = 1
+        //console.log(igKey); //this gives you for example salad or like every element of the array
+        //console.log(props.ingredients[igKey]); //helps determine the size of the Array below. for example salad would props.ingredient[salad] = 1
 
         return [...Array(props.ingredients[igKey])].map((_,i) => {
 
@@ -27,7 +27,7 @@ const burger = (props) => {
 
 
             //console.log(igKey); this will be used to assign the type which will scan the switch statement in BI
-            console.log(igKey + i); //to give unique name to each key....chicken01,chicken 02 etc...
+            //console.log(igKey + i); //to give unique name to each key....chicken01,chicken 02 etc...
 
             return <BurgerIngredient key={igKey + i} type={igKey} />
         });
