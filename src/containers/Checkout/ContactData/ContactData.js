@@ -56,8 +56,8 @@ class ContactData extends Component {
                 elementType: 'select',
                 elementConfig: {
                     options: [
-                        {value: 'fastest', displayValue: 'Fastest'},
-                        {value: 'cheapest', displayValue: 'Cheapest'}
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
                 value: ''
@@ -66,37 +66,38 @@ class ContactData extends Component {
         loading: false
     }
 
-    orderHandler = ( event ) => {
+    orderHandler = (event) => {
         event.preventDefault();
-        this.setState( { loading: true } );
+        this.setState({ loading: true });
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
             orderData: formData
         }
-        axios.post( '/orders.json', order )
-            .then( response => {
-                this.setState( { loading: false } );
+        axios.post('/orders.json', order)
+            .then(response => {
+                this.setState({ loading: false });
                 this.props.history.push('/');
-            } )
-            .catch( error => {
-                this.setState( { loading: false } );
-            } );
+            })
+            .catch(error => {
+                this.setState({ loading: false });
+            });
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
+        //console.log(event.target.value) holds all the form value data
         const updatedOrderForm = {
-            ...this.state.orderForm
-        };
-        const updatedFormElement = { 
-            ...updatedOrderForm[inputIdentifier]
+            ...this.state.orderForm //clones the orderform
+        }; //{} is a js object
+        const updatedFormElement = {
+            ...updatedOrderForm[inputIdentifier] //this gives you access to children stuff for names, streets 
         };
         updatedFormElement.value = event.target.value;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        this.setState({orderForm: updatedOrderForm});
+        this.setState({ orderForm: updatedOrderForm });
     }
 
-    render () {
+    render() {
         const formElementsArray = [];
         for (let key in this.state.orderForm) { //key are names streets etc
             formElementsArray.push({
@@ -107,8 +108,8 @@ class ContactData extends Component {
         let form = (
             <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
-                    <Input 
-                        key={formElement.id}
+                    <Input
+                        key={formElement.id} //key are names, streets, etc in orderform
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
@@ -117,7 +118,7 @@ class ContactData extends Component {
                 <Button btnType="Success">ORDER</Button>
             </form>
         );
-        if ( this.state.loading ) {
+        if (this.state.loading) {
             form = <Spinner />;
         }
         return (
